@@ -7,7 +7,6 @@ var knex = require('../db/knex.js');
 router.get('/', function(req, res, next) {
   knex('users').select().then(function(results){
     res.json(results)
-    });
   })
 });
 
