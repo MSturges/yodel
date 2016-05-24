@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex.js');
 var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 
 /* GET home page. */
@@ -47,15 +48,13 @@ router.post('/signup', function(req, res, next) {
           })
           .returning('*').then(function(userReturn) {
             var user = (userReturn[0])
-            // var token = jwt.sign({
-            //   id: user.id
-            // }, 'secret')
-
+            var token = jwt.sign({
+              id: user.id
+            }, 'secret')
             res.json({
               id: user.id,
-              email: user.email,
-              name: user.name,
-              // token: token
+              name: user.username,
+              token: token
             })
           })
       } else {
