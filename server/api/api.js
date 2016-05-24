@@ -25,9 +25,7 @@ router.post('/newlocation', function(req, res, next) {
     res.json(results)
   })
 });
-
 //signup w/ bcrypt
-
 router.post('/signup', function(req, res, next) {
   console.log('postrequest received')
   knex('users')
