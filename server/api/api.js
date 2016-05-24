@@ -11,6 +11,12 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/buddylist', function(req, res, next){
+  knex('users').where('lat', '>',  39).then(function(results){
+    res.json(results)
+  })
+})
+
 
 
 router.post('/newlocation', function(req, res, next) {
