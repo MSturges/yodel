@@ -93,17 +93,26 @@ router.post('/signup', function(req, res, next) {
 //login w/ bcrypt
 
 
-router.post('/login', function(req, res, next) {
+router.get('/me', function(req, res, next) {
 
-  knex('users').where('username', req.body.username).then(function(user) {
-    if (bcrypt.compareSync(req.body.password, user[0].password)) {
-      var token = {};
-      token.id = user[0].id;
-      res.json(token)
-    } else {
-      res.send('login failed')
-    }
-  })
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1];
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    // payload is {id: 56}
+    knex('users').where({id: payload.id}).first().then(function (user) {
+      if (user) {
+        res.json({id: user.id, name: user.name})
+      } else {
+        res.status(403).json({
+          error: "Invalid ID"
+        })
+      }
+    })
+  } else {
+    res.status(403).json({
+      error: "No token"
+    })
+  }
 })
 
 
