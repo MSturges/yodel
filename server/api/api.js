@@ -65,10 +65,11 @@ router.post('/signup', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
 
-  knex('users').where('username', req.body.username).then(function(users) {
-    console.log('users: ', users);
-    if (bcrypt.compare(req.body.password, users[0].password)) {
-      res.json(users)
+  knex('users').where('username', req.body.username).then(function(user) {
+    if (bcrypt.compareSync(req.body.password, user[0].password)) {
+      res.json(user)
+    } else {
+      res.send('login failed')
     }
   })
 })
