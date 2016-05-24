@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     knex('users').del(),
 
     // Inserts seed entries
-    knex('users').insert({username: 'Blake123', password: 'password', lat: 40.017562, long: -105.281545}),
+    knex('users').insert({username: 'Galvanize', password: 'password', lat: 40.017562, long: -105.281545}),
     knex('users').insert({username: 'Coleman123', password: 'password', lat:40.017562, long:-105.281545}),
     knex('users').insert({username: 'James123', password: 'password', lat: 40.018008, long:-105.279489}),
     knex('users').insert({username: 'Matt123', password: 'password', lat:40.019719, long:-105.270981}),
