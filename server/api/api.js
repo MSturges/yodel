@@ -17,9 +17,6 @@ router.get('/buddylist', function(req, res, next){
     res.json(results)
   })
 })
-
-
-
 router.post('/newlocation', function(req, res, next) {
   knex('users')
   .insert(req.body)
@@ -28,30 +25,6 @@ router.post('/newlocation', function(req, res, next) {
     res.json(results)
   })
 });
-
-//login w/token
-
-router.get('/me', function(req, res, next) {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.split(' ')[1];
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    // payload is {id: 56}
-    knex('users').where({id: payload.id}).first().then(function (user) {
-      if (user) {
-        res.json({id: user.id, name: user.name})
-      } else {
-        res.status(403).json({
-          error: "Invalid ID"
-        })
-      }
-    })
-  } else {
-    res.status(403).json({
-      error: "No token"
-    })
-  }
-})
-
 
 //signup w/ bcrypt
 
