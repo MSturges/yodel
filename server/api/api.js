@@ -11,7 +11,8 @@ router.get('/', function(req, res, next) {
 });
 router.get('/newlocation', function(req, res, next) {
   knex('users')
-  .insert(req.body).then(function(results){
+  .insert(req.body)
+  .then(function(results){
     console.log(results)
     res.json(results)
   })
