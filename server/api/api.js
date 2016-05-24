@@ -9,13 +9,11 @@ router.get('/', function(req, res, next) {
     res.json(results)
   })
 });
-router.get('/newlocation', function(req, res, next) {
-  knex('users')
-  .insert(req.body)
-  .then(function(results){
-    console.log(results)
-    res.json(results)
-  })
+
+router.post('/', function(req, res, next) {
+   knex('users').insert(req.body).returning('*').then(function(results){
+     res.json(results)
+   })
 });
 
 module.exports = router;
