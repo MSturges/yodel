@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     res.json(results)
   })
 });
-router.get('/newlocation', function(req, res, next) {
+router.post('/newlocation', function(req, res, next) {
   knex('users')
   .insert(req.body)
   .then(function(results){
