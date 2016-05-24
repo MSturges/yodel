@@ -60,5 +60,18 @@ router.post('/signup', function(req, res, next) {
     })
 })
 
+//login w/ bcrypt
+
+
+router.post('/login', function(req, res, next) {
+
+  knex('users').where('username', req.body.username).then(function(users) {
+    console.log('users: ', users);
+    if (bcrypt.compare(req.body.password, users[0].password)) {
+      res.json(users)
+    }
+  })
+})
+
 
 module.exports = router;
