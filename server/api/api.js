@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex.js');
+var bcrypt = require('bcrypt');
 
 
 /* GET home page. */
@@ -10,11 +11,13 @@ router.get('/', function(req, res, next) {
   })
 });
 
+
+
 router.post('/newlocation', function(req, res, next) {
   knex('users')
   .insert(req.body)
+  .returning('*')
   .then(function(results){
-    console.log(results)
     res.json(results)
   })
 });
