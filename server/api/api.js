@@ -18,3 +18,9 @@ router.get('/newlocation', function(req, res, next) {
 });
 
 module.exports = router;
+
+//signup
+
+// router.post('/', function(req, res, next){
+//   knex('users').where('name')
+// })

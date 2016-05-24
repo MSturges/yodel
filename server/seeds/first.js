@@ -5,11 +5,10 @@ exports.seed = function(knex, Promise) {
     knex('users').del(),
 
     // Inserts seed entries
-    knex('users').insert({firstname: 'Alan', email: 'alan@gmail.com', password: 'password'}),
-    knex('users').insert({firstname: 'Blake', email: 'blake@gmail.com', password: 'password'}),
-    knex('users').insert({firstname: 'Coleman', email: 'coleman@gmail.com', password: 'password'}),
-    knex('users').insert({firstname: 'James', email: 'james@gmail.com', password: 'password'}),
-    knex('users').insert({firstname: 'Matt', email: 'matt@gmail.com', password: 'password'}),
-    knex('users').insert({firstname: 'Max', email: 'max@gmail.com', password: 'password'})
+    knex('users').insert({username: 'Blake123', password: 'password', lat: 40.017562, long: -105.281545}),
+    knex('users').insert({username: 'Coleman123', password: 'password', lat:40.017562, long:-105.281545}),
+    knex('users').insert({username: 'James123', password: 'password', lat: 40.018008, long:-105.279489}),
+    knex('users').insert({username: 'Matt123', password: 'password', lat:40.019719, long:-105.270981}),
+    knex('users').insert({username: 'Max123', password: 'password', lat: 40.029228, long:-105.225009})
   );
 };
