@@ -61,7 +61,6 @@ router.post('/signup', function(req, res, next) {
 })
 //me route
 router.get('/me', function(req, res, next) {
-
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(' ')[1];
     const payload = jwt.verify(token, 'secret');
