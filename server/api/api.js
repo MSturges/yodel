@@ -11,6 +11,27 @@ router.get('/', function(req, res, next) {
     res.json(results)
   })
 });
+//me route
+router.get('/me', function(req, res, next) {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1];
+    const payload = jwt.verify(token, 'secret');
+    // payload is {id: 56}
+    knex('users').where({id: payload.id}).first().then(function (user) {
+      if (user) {
+        res.json({id: user.id, name: user.username})
+      } else {
+        res.status(403).json({
+          error: "Invalid ID"
+        })
+      }
+    })
+  } else {
+    res.status(403).json({
+      error: "No token"
+    })
+  }
+})
 
 router.get('/buddylist', function(req, res, next){
   knex('users').where('lat', '>',  39).then(function(results){
@@ -63,28 +84,6 @@ router.post('/signup', function(req, res, next) {
     }
   })
 })
-//me route
-router.get('/me', function(req, res, next) {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.split(' ')[1];
-    const payload = jwt.verify(token, 'secret');
-    // payload is {id: 56}
-    knex('users').where({id: payload.id}).first().then(function (user) {
-      if (user) {
-        res.json({id: user.id, name: user.username})
-      } else {
-        res.status(403).json({
-          error: "Invalid ID"
-        })
-      }
-    })
-  } else {
-    res.status(403).json({
-      error: "No token"
-    })
-  }
-})
-
 //login w/ bcrypt
 router.post('/login', function(req,res,next) {
   knex('users')
