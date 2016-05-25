@@ -33,11 +33,16 @@ router.get('/me', function(req, res, next) {
   }
 })
 
+
+//'filter and miles'
 router.get('/buddylist', function(req, res, next){
-  knex('users').where('lat', '>',  39).then(function(results){
+  knex.raw('SELECT * FROM users WHERE acos(sin(1.3963) * sin(lat * PI() / 180) + cos(1.3963) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (-0.6981))) * 3959 <= 3200').then(function(results){
     res.json(results)
   })
+
 })
+
+
 router.post('/newlocation', function(req, res, next) {
   knex('users')
   .where('username', '=', req.body.username.toLowerCase())
