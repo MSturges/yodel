@@ -52,7 +52,7 @@ router.post('/goactive', function(req, res, next) {
   });
 
   if (activeBool === true) {
-    knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 2000 AND active = true')
+    knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
       .then(function(results) {
         res.json(results.rows)
       })
@@ -60,20 +60,6 @@ router.post('/goactive', function(req, res, next) {
     res.json({message: 'buddy list should be empty now'})
   }
 })
-
-
-// router.post('/newlocation', function(req, res, next) {
-//   knex('users')
-//   .where('username', '=', req.body.username.toLowerCase())
-//   .first()
-//   .update(req.body)
-//   .returning('*')
-//   .then(function(response){
-//     console.log('response from server location route: ', response)
-//     res.json(response)
-//   });
-// });
-//signup w/ bcrypt
 
 
 router.post('/signup', function(req, res, next) {
