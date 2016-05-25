@@ -45,7 +45,12 @@ router.post('/goactive', function(req, res, next) {
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
-  res.json({connection: 'established :) :) :) ;) :)'})
+  res.json({
+    userID: UserId,
+    userLat: userLat,
+    userLong: userLong,
+    activeBool: activeBool
+  })
 
   // knex('users').where('id', userID).update({
   //   lat: userLat,
