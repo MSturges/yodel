@@ -19,11 +19,15 @@ router.get('/buddylist', function(req, res, next){
 })
 router.post('/newlocation', function(req, res, next) {
   knex('users')
-  .insert(req.body)
-  .returning('*')
-  .then(function(results){
-    res.json(results)
-  })
+  .where('username', '=', req.body.username.toLowerCase())
+  .first()
+  .then(function(response){
+    .update(req.body)
+    .returning('*')
+    .then(function(results){
+      res.json(results)
+    })
+  });
 });
 //signup w/ bcrypt
 router.post('/signup', function(req, res, next) {
