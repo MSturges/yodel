@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 router.get('/me', function(req, res, next) {
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(' ')[1];
-    const payload = jwt.verify(token, 'secret');
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     // payload is {id: 56}
     knex('users').where({id: payload.id}).first().then(function (user) {
       if (user) {
@@ -39,10 +39,7 @@ router.get('/buddylist', function(req, res, next){
   knex.raw('SELECT * FROM users WHERE acos(sin(40.0179 * PI() / 180) * sin(lat * PI() / 180) + cos(40.0179 * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (-105.28 * PI() / 180))) * 3959 <= 0.1').then(function(results){
     res.json(results)
   })
-
 })
-
-
 router.post('/newlocation', function(req, res, next) {
   knex('users')
   .where('username', '=', req.body.username.toLowerCase())
@@ -74,7 +71,7 @@ router.post('/signup', function(req, res, next) {
         var user = (userReturn[0])
         var token = jwt.sign({
           id: user.id
-        }, 'secret')
+        }, process.env.JWT_SECRET)
         res.json({
           id: user.id,
           name: user.username,
