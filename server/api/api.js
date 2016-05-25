@@ -46,7 +46,6 @@ router.post('/goactive', function(req, res, next) {
   var userLong = req.body.long;
   var activeBool = req.body.active;
   res.json({
-    userID: userId,
     userLat: userLat,
     userLong: userLong,
     activeBool: activeBool
