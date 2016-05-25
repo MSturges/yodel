@@ -29,40 +29,67 @@ router.post('/newlocation', function(req, res, next) {
 router.post('/signup', function(req, res, next) {
   console.log('postrequest received')
   knex('users')
-    .whereRaw('lower(username) = ?', req.body.username.toLowerCase())
-    .count()
-    .first()
-    .then(function(result) {
-      if (result.count === "0") {
-        var saltRounds = 4;
-        var passwordHash = bcrypt.hashSync(req.body.password, saltRounds)
-        console.log('inserting')
-        knex('users').insert({
-            username: req.body.username,
-            password: passwordHash
-          })
-          .returning('*').then(function(userReturn) {
-            var user = (userReturn[0])
-            var token = jwt.sign({
-              id: user.id
-            }, 'secret')
-            res.json({
-              id: user.id,
-              name: user.username,
-              token: token
-            })
-          })
-      } else {
-        res.status(422).json({
-          errors: ['Email already taken']
+  .whereRaw('lower(username) = ?', req.body.username.toLowerCase())
+  .count()
+  .first()
+  .then(function(result) {
+    if (result.count === "0") {
+      var saltRounds = 4;
+      var passwordHash = bcrypt.hashSync(req.body.password, saltRounds)
+      console.log('inserting')
+      knex('users').insert({
+        username: req.body.username,
+        password: passwordHash
+      })
+      .returning('*').then(function(userReturn) {
+        var user = (userReturn[0])
+        var token = jwt.sign({
+          id: user.id
+        }, 'secret')
+        res.json({
+          id: user.id,
+          name: user.username,
+          token: token
         })
-      }
-    })
+      })
+    } else {
+      res.status(422).json({
+        errors: ['Email already taken']
+      })
+    }
+  })
 })
 
 //login w/ bcrypt
+// login
+router.post('/login', function(req,res,next) {
+
+  knex('users')
+  .where('username', '=', req.body.username.toLowerCase())
+  .first()
+  .then(function(response){
+    // error check for email??
+    if(response && bcrypt.compareSync(req.body.password, response.password)){
+      console.log('user found');
+      //  console.log('from the response promise:', response)
+      const user = response;
+      console.log('user: ',user)
+      const token = jwt.sign( {id:user.id} , process.env.JWT_SECRET);
+      console.log('token',token)
+      res.json({
+        id: user.id,
+        // email: user.email,
+        username: user.username,
+        token: token
+      })
+    } else {
+      res.status(422).send('Invalid username or password')
+    }
+  });
+})
 
 
+//me route
 router.get('/me', function(req, res, next) {
 
   if (req.headers.authorization) {
