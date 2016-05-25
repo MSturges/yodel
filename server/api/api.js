@@ -45,17 +45,14 @@ router.post('/goactive', function(req, res, next) {
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
-  res.json({
-    userLat: userLat,
-    userLong: userLong,
-    activeBool: activeBool
-  })
-
-  // knex('users').where('id', userID).update({
-  //   lat: userLat,
-  //   long: userLong,
-  //   active: activeBool
-  // })
+  knex('users').where('id', 28).update({
+    lat: userLat,
+    long: userLong,
+    active: activeBool
+  }).returning('*')
+    .then(function(results){
+      res.json(results)
+    })
 
 
   // if (activeBool === true) {
