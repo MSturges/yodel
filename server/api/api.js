@@ -42,12 +42,11 @@ router.post('/newlocation', function(req, res, next) {
   knex('users')
   .where('username', '=', req.body.username.toLowerCase())
   .first()
+  .update(req.body)
+  .returning('*')
   .then(function(response){
-    .update(req.body)
-    .returning('*')
-    .then(function(results){
-      res.json(results)
-    })
+    console.log('response from server location route: ', response)
+    res.json(response)
   });
 });
 //signup w/ bcrypt
