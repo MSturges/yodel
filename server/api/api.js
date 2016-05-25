@@ -93,7 +93,7 @@ router.post('/signup', function(req, res, next) {
 //login w/ bcrypt
 router.post('/login', function(req,res,next) {
   knex('users')
-  .whereRaw('lower(username) = ?', '=', req.body.username.toLowerCase())
+  .where( 'username', req.body.username)
   .first()
   .then(function(response){
     // error check for email??
