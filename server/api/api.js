@@ -45,16 +45,16 @@ router.post('/goactive', function(req, res, next) {
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
-  knex('users').where('id', '21').update({
+  knex('users').where('id', 21).update({
     lat: userLat,
     long: userLong,
-    active: true
+    active: activeBool
   });
 
   if (activeBool === true) {
     knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
       .then(function(results) {
-        res.json(req.body)
+        res.json(results.rows)
       })
   } else {
     res.json({message: 'buddy list should be empty now'})
