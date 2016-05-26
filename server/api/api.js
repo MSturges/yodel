@@ -42,6 +42,7 @@ router.get('/me', function(req, res, next) {
 //'filter and miles'
 router.post('/goactive', function(req, res, next) {
   console.log('Received post /goactive!')
+  console.log('And here is your req.body: ' + req.body);
   var userID = req.body.id
   var userLat = req.body.lat;
   var userLong = req.body.long;
