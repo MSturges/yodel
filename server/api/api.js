@@ -43,7 +43,7 @@ router.get('/me', function(req, res, next) {
 router.post('/goactive', function(req, res, next) {
   console.log('Received post /goactive!')
   console.log('And here is your req.body: ', req.body);
-  var userID = req.body.id
+  // var userID = req.body.id
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
@@ -52,7 +52,9 @@ router.post('/goactive', function(req, res, next) {
     lat: userLat,
     long: userLong,
     active: activeBool
-  });
+  }).then(function(){
+    console.log('knex update ran')
+  })
 
   if (activeBool === true) {
     knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
