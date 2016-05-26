@@ -5,16 +5,16 @@ exports.seed = function(knex, Promise) {
     knex('users').del(),
 
     // Inserts seed entries
-    knex('users').insert({username: 'Denver', password: 'password', lat: 39.7752, long: -105.0493, active: true}),
-    knex('users').insert({username: 'New York', password: 'password', lat:40.6554, long:-74.01545, active: true}),
-    knex('users').insert({username: 'London', password: 'password', lat: 51.5708, long: 0, active: true}),
-    knex('users').insert({username: 'Moscow', password: 'password', lat:55.7565, long: 37.6173, active: true}),
-    knex('users').insert({username: 'Tokyo', password: 'password', lat: 35.6754, long:139.6925, active: true}),
-    knex('users').insert({username: 'Broadway & Pearl', password: 'password', lat: 40.01791, long:-105.28001, active: true}),
-    knex('users').insert({username: '13th & Pearl', password: 'password', lat: 40.01821, long:-105.27871, active: true}),
-    knex('users').insert({username: '14th & Pearl', password: 'password', lat: 40.01841, long:-105.27731, active: true}),
-    knex('users').insert({username: '19th & Pearl', password: 'password', lat: 40.01981, long:-105.27081, active: true}),
-    knex('users').insert({username: 'Boulder County Airport', password: 'password', lat: 40.03791, long:-105.22981, active: true})
+    knex('users').insert({username: 'Denver', password: 'password', lat: 39.7752, long: -105.0493, interests:'' active: true}),
+    knex('users').insert({username: 'New York', password: 'password', lat:40.6554, long:-74.01545, interests:'' active: true}),
+    knex('users').insert({username: 'London', password: 'password', lat: 51.5708, long: 0, interests:'' active: true}),
+    knex('users').insert({username: 'Moscow', password: 'password', lat:55.7565, long: 37.6173, interests:'' active: true}),
+    knex('users').insert({username: 'Tokyo', password: 'password', lat: 35.6754, long:139.6925, interests:'' active: true}),
+    knex('users').insert({username: 'Broadway & Pearl', password: 'password', lat: 40.01791, long:-105.28001, interests:'coding, snowboarding, beer' active: true}),
+    knex('users').insert({username: '13th & Pearl', password: 'password', lat: 40.01821, long:-105.27871, interests:'lemurs, tea, food, cats, beer' active: true}),
+    knex('users').insert({username: '14th & Pearl', password: 'password', lat: 40.01841, long:-105.27731, interests:'dogs, cats, food, books, lemurs' active: true}),
+    knex('users').insert({username: '19th & Pearl', password: 'password', lat: 40.01981, long:-105.27081, interests:'dogs, cats, animals, boulder, coding, cheese, reddit, soccer, travel, eating, soccer' active: true}),
+    knex('users').insert({username: 'Boulder Municipal Airport', password: 'password', lat: 40.03791, long:-105.22981, interests:'airplanes, aircraft, helicopters, travel, transportation, flying, aviation, gliders' active: true})
 
   );
 };
