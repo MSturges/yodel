@@ -52,7 +52,9 @@ router.post('/goactive', function(req, res, next) {
     lat: userLat,
     long: userLong,
     active: activeBool
-  });
+  }).then(function(){
+    console.log('knex insertion complete')
+  })
 
   if (activeBool === true) {
     knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
