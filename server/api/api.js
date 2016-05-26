@@ -67,6 +67,8 @@ router.post('/goactive', function(req, res, next) {
 })
 
 
+
+
 router.post('/signup', function(req, res, next) {
     console.log('postrequest received')
     knex('users')
