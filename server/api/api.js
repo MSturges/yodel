@@ -48,7 +48,7 @@ router.post('/goactive', function(req, res, next) {
   knex('users').where('id', 21).update({
     lat: userLat,
     long: userLong,
-    active: activeBool
+    active: true
   });
 
   if (activeBool === true) {
