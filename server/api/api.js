@@ -51,14 +51,14 @@ router.post('/goactive', function(req, res, next) {
     active: activeBool
   });
 
-  // if (activeBool === true) {
-  //   knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
-  //     .then(function(results) {
-  //       res.json(results.rows)
-  //     })
-  // } else {
-  //   res.json({message: 'buddy list should be empty now'})
-  // }
+  if (activeBool === true) {
+    knex.raw('SELECT * FROM users WHERE acos(sin(' + userLat + ' * PI() / 180) * sin(lat * PI() / 180) + cos(' + userLat + ' * PI() / 180) * cos(lat * PI() / 180) * cos((long * PI() / 180) - (' + userLong + ' * PI() / 180))) * 3959 <= 5 AND active = true')
+      .then(function(results) {
+        res.json(results.rows)
+      })
+  } else {
+    res.json({message: 'buddy list should be empty now'})
+  }
 })
 
 
