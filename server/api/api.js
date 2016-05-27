@@ -80,6 +80,8 @@ router.post('/settingsupdate', function(req, res, next){
   console.log('interestsInput: ', interestsInput);
   knex('users').where('id', 21).update({
     interests: interestsInput
+  }).then(function(){
+    console.log('knex tried to insert interests into db')
   })
 })
 
