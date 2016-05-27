@@ -11,6 +11,15 @@ router.get('/', function(req, res, next) {
     res.json(results)
   })
 });
+// retrieve singleuser
+router.get('/singleuser/:id', function(req, res, next) {
+  knex('users')
+    .where('id',req.params.id)
+    .then(function(user){
+      console.log('being sent from the database',user.data);
+      res.json(user[0])
+    })
+  });
 //me route
 router.get('/me', function(req, res, next) {
   if (req.headers.authorization) {
