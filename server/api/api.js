@@ -52,12 +52,12 @@ router.get('/me', function(req, res, next) {
 router.post('/goactive', function(req, res, next) {
   console.log('Received post /goactive!')
   console.log('And here is your req.body: ', req.body);
-  // var userID = req.body.id
+  var userID = req.body.id
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
-  console.log('Now your vars. userLat :' + userLat + 'userLong: ' + userLong + 'activeBool: ' + activeBool)
-  knex('users').where('id', 21).update({
+  console.log('Now your vars. userId:' + userID + 'userLat :' + userLat + 'userLong: ' + userLong + 'activeBool: ' + activeBool)
+  knex('users').where('id', userID).update({
     lat: userLat,
     long: userLong,
     active: activeBool
@@ -76,17 +76,19 @@ router.post('/goactive', function(req, res, next) {
 })
 
 router.post('/settingsupdate', function(req, res, next){
+
   var interestsInput = req.body.body;
+  var id = req.body.id
   console.log('interestsInput: ', interestsInput);
-  knex('users').where('id', 21).update({
+  knex('users').where('id', id).update({
     interests: interestsInput
   }).then(function(){
     console.log('knex tried to insert interests into db')
   })
 })
 
-router.get('/settingsretrieve', function(req, res, next){
-  knex('users').where('id', 21).then(function(results){
+router.get('/settingsretrieve/:id', function(req, res, next){
+  knex('users').where('id', req.body.id).then(function(results){
     res.json(results[0].interests)
   })
 })
