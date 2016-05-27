@@ -85,7 +85,11 @@ router.post('/settingsupdate', function(req, res, next){
   })
 })
 
-
+router.get('/settingsretrieve', function(req, res, next){
+  knex('users').where('id', 21).then(function(results){
+    res.json(results[0].interests)
+  })
+})
 
 
 router.post('/signup', function(req, res, next) {
