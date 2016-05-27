@@ -131,10 +131,8 @@ router.post('/login', function(req, res, next) {
     .where('username', '=', req.body.username.toLowerCase())
     .first()
     .then(function(response) {
-      // error check for email??
       if (response && bcrypt.compareSync(req.body.password, response.password)) {
         console.log('user found');
-        //  console.log('from the response promise:', response)
         const user = response;
         console.log('user: ', user)
         const token = jwt.sign({
@@ -143,7 +141,6 @@ router.post('/login', function(req, res, next) {
         console.log('token', token)
         res.json({
           id: user.id,
-          // email: user.email,
           username: user.username,
           token: token
         })
