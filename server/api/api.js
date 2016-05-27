@@ -66,7 +66,9 @@ router.post('/goactive', function(req, res, next) {
   }
 })
 
-
+router.post('/updatesettings', function(req, res, next){
+  console.log('settings update received, here is your object: ', req.body)
+})
 
 
 router.post('/signup', function(req, res, next) {
