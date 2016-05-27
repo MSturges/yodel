@@ -3,10 +3,10 @@ var io = require('socket.io')();
 io.on('connection', function(socket){
 
   socket.on('join:room', function(data){
-    console.log('joined');
+    console.log('joined', data);
     var room_name = data.room_name;
     socket.join(room_name);
-    socket.in(msg.room).emit('messages', msgs);
+    // socket.in(msg.room).emit('messages', msgs);
   });
 
   socket.on('leave:room', function(msg){
@@ -17,7 +17,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('send:message', function(msg){
-    console.log('sent message');
+    console.log('sent message', msg);
     socket.in(msg.room).emit('message', msg);
   });
 
