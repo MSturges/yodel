@@ -77,7 +77,7 @@ router.post('/goactive', function(req, res, next) {
 
 router.post('/settingsupdate', function(req, res, next){
   var interestsInput = req.body.body;
-  console.log(interestsInput);
+  console.log('interestsInput: ', interestsInput);
   knex('users').where('id', 21).update({
     interests: interestsInput
   })
