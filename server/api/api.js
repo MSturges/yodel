@@ -86,6 +86,8 @@ router.post('/settingsupdate', function(req, res, next){
 })
 
 
+
+
 router.post('/signup', function(req, res, next) {
     console.log('postrequest received')
     knex('users')
