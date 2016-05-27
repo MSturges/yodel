@@ -52,12 +52,12 @@ router.get('/me', function(req, res, next) {
 router.post('/goactive', function(req, res, next) {
   console.log('Received post /goactive!')
   console.log('And here is your req.body: ', req.body);
-  // var userID = req.body.id
+  var userID = req.body.id
   var userLat = req.body.lat;
   var userLong = req.body.long;
   var activeBool = req.body.active;
   console.log('Now your vars. userLat :' + userLat + 'userLong: ' + userLong + 'activeBool: ' + activeBool)
-  knex('users').where('id', 21).update({
+  knex('users').where('id', userID).update({
     lat: userLat,
     long: userLong,
     active: activeBool
