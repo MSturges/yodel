@@ -75,6 +75,22 @@ router.post('/goactive', function(req, res, next) {
   }
 })
 
+router.post('/settingsupdate', function(req, res, next){
+  var interestsInput = req.body.body;
+  console.log('interestsInput: ', interestsInput);
+  knex('users').where('id', 21).update({
+    interests: interestsInput
+  }).then(function(){
+    console.log('knex tried to insert interests into db')
+  })
+})
+
+router.get('/settingsretrieve', function(req, res, next){
+  knex('users').where('id', 21).then(function(results){
+    res.json(results[0].interests)
+  })
+})
+
 
 router.post('/signup', function(req, res, next) {
     console.log('postrequest received')
